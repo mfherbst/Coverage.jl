@@ -63,6 +63,12 @@ module Coveralls
     """
     function submit(fcs::Vector{FileCoverage}; kwargs...)
         data = prepare_request(fcs, false)
+        println()
+        println(" ================ ")
+        println(Dict(k=>v for (k, v) in data if k != "repo_token"))
+        println("Keys: ", keys(data))
+        println(" ================ ")
+        println()
         post_request(data)
     end
 
