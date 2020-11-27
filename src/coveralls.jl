@@ -105,6 +105,11 @@ module Coveralls
             data["service_name"] = "github"
             data["git"] = parse_git_info(git_info)
 
+            # github_sha = get(ENV, "GITHUB_SHA", "")
+            # isempty(github_sha) || data["git"]["head"]["id"] github_sha
+            github_branch = get(ENV, "GITHUB_REF", "")
+            isempty(github_branch) || data["git"]["branch"] = github_branch
+
             event_path = open(JSON.Parser.parse, ENV["GITHUB_EVENT_PATH"])
             github_pr_info = get(event_path, "pull_request", Dict())
             github_pr = get(github_pr_info, "number", "")
